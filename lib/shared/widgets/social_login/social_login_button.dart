@@ -5,7 +5,12 @@ import 'package:payflow/shared/themes/app_text_styles.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback press;
-  const SocialLoginButton({Key? key, required this.press}) : super(key: key);
+  final EdgeInsets? padding;
+  const SocialLoginButton({
+    Key? key,
+    required this.press,
+    this.padding,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +18,7 @@ class SocialLoginButton extends StatelessWidget {
       onTap: press,
       child: Container(
         height: 56,
+        margin: padding ?? EdgeInsets.zero,
         decoration: BoxDecoration(
           color: AppColors.shape,
           border: Border.fromBorderSide(BorderSide(color: AppColors.stroke)),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/social_login/social_login_button.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String routeName = '/loginPage';
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -13,6 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = LoginController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,27 +28,21 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               width: size.width,
-              height: size.height * 0.36,
+              height: size.height * 0.4,
               color: AppColors.primary,
             ),
-            Positioned(
-              top: 40,
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                AppImages.person,
-                width: 208,
-                height: 300,
-              ),
-            ),
-            Positioned(
-              bottom: size.height * 0.05,
-              left: 0,
-              right: 0,
+            SafeArea(
               child: Column(
                 children: [
+                  const Spacer(),
+                  Image.asset(
+                    AppImages.person,
+                    width: 208,
+                    height: 300,
+                  ),
+                  const Spacer(),
                   Image.asset(AppImages.logomini),
-                  const SizedBox(height: 30),
+                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 70),
                     child: Text(
@@ -54,27 +51,15 @@ class _LoginPageState extends State<LoginPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
-                    child: SocialLoginButton(
-                      press: () async {
-                        GoogleSignIn _googleSignIn = GoogleSignIn(
-                          scopes: [
-                            'email',
-                            'https://www.googleapis.com/auth/contacts.readonly',
-                          ],
-                        );
-                        try {
-                          await _googleSignIn.signIn();
-                        } catch (error) {
-                          print(error);
-                        }
-                      },
-                    ),
+                  const Spacer(),
+                  SocialLoginButton(
+                    press: () => controller.googleSignIn(context),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                   ),
+                  const Spacer(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
