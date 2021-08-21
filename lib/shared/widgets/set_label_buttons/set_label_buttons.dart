@@ -8,18 +8,22 @@ class SetLabelButtons extends StatelessWidget {
   final VoidCallback primaryPress;
   final String secondaryLabel;
   final VoidCallback secondaryPress;
+  final bool? enablePrimaryColor;
+
   const SetLabelButtons({
     Key? key,
     required this.primaryLabel,
     required this.primaryPress,
     required this.secondaryLabel,
     required this.secondaryPress,
+    this.enablePrimaryColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 56,
+      color: AppColors.shape,
       child: Row(
         children: [
           Expanded(

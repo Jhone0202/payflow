@@ -5,67 +5,76 @@ import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/set_label_buttons/set_label_buttons.dart';
 
 class BottomSheetWidget extends StatelessWidget {
-  final String primaryLabel;
-  final VoidCallback primaryPress;
-  final String secondaryLabel;
-  final VoidCallback secondaryPress;
+  final String labelPrimary;
+  final VoidCallback onTapPrimary;
+  final String labelSecondary;
+  final VoidCallback onTapSecondary;
   final String title;
   final String subtitle;
-  const BottomSheetWidget({
-    Key? key,
-    required this.primaryLabel,
-    required this.primaryPress,
-    required this.secondaryLabel,
-    required this.secondaryPress,
-    required this.title,
-    required this.subtitle,
-  }) : super(key: key);
+  const BottomSheetWidget(
+      {Key? key,
+      required this.labelPrimary,
+      required this.onTapPrimary,
+      required this.labelSecondary,
+      required this.onTapSecondary,
+      required this.title,
+      required this.subtitle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Material(
-          child: Container(
-            color: AppColors.shape,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.black.withOpacity(0.1),
+    return RotatedBox(
+      quarterTurns: 1,
+      child: Material(
+        color: Colors.transparent,
+        child: Column(
+          children: [
+            Expanded(
+                child: Container(
+              color: Colors.black.withOpacity(0.5),
+            )),
+            Container(
+              color: AppColors.background,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 40,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Text.rich(
+                  Text.rich(
                     TextSpan(
-                      text: title,
-                      style: AppTextStyles.buttonBoldHeading,
-                      children: [
-                        TextSpan(
-                          text: '\n$subtitle',
-                          style: AppTextStyles.buttonHeading,
-                        )
-                      ],
-                    ),
+                        text: title,
+                        style: AppTextStyles.buttonBoldHeading,
+                        children: [
+                          TextSpan(
+                            text: "\n$subtitle",
+                            style: AppTextStyles.buttonHeading,
+                          )
+                        ]),
                     textAlign: TextAlign.center,
                   ),
-                ),
-                Divider(
-                  color: AppColors.stroke,
-                  thickness: 1,
-                  height: 0,
-                ),
-                SetLabelButtons(
-                  primaryLabel: primaryLabel,
-                  primaryPress: primaryPress,
-                  secondaryLabel: secondaryLabel,
-                  secondaryPress: secondaryPress,
-                ),
-              ],
+                  SizedBox(height: 40),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                        height: 1,
+                        color: AppColors.stroke,
+                      )),
+                    ],
+                  ),
+                  SetLabelButtons(
+                    enablePrimaryColor: true,
+                    primaryLabel: labelPrimary,
+                    primaryPress: onTapPrimary,
+                    secondaryLabel: labelSecondary,
+                    secondaryPress: onTapSecondary,
+                  ),
+                  SizedBox(height: 2),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
