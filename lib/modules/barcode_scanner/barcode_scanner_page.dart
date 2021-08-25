@@ -98,18 +98,17 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
             builder: (_, status, __) {
               if (status.hasError) {
                 return Align(
-                    alignment: Alignment.bottomLeft,
-                    child: BottomSheetWidget(
-                        labelPrimary: "Escanear novamente",
-                        onTapPrimary: () {
-                          controller.scanWithCamera();
-                        },
-                        labelSecondary: "Digitar código",
-                        onTapSecondary: () {},
-                        title:
-                            "Não foi possível identificar um código de barras.",
-                        subtitle:
-                            "Tente escanear novamente ou digite o código do seu boleto."));
+                  alignment: Alignment.bottomLeft,
+                  child: BottomSheetWidget(
+                    labelPrimary: 'Escanear novamente',
+                    onTapPrimary: () => controller.scanWithCamera(),
+                    labelSecondary: 'Digitar código',
+                    onTapSecondary: () {},
+                    title: 'Não foi possível identificar um código de barras.',
+                    subtitle:
+                        'Tente escanear novamente ou digite o código do seu boleto.',
+                  ),
+                );
               } else {
                 return Container();
               }
