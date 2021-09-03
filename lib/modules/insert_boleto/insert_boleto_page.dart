@@ -81,7 +81,8 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
                   icon: FontAwesomeIcons.wallet,
                   onChanged: (String value) {
                     controller.onChange(
-                        valor: moneyInputTextController.numberValue);
+                      value: moneyInputTextController.numberValue,
+                    );
                   },
                   validator: (_) => controller
                       .validadeValor(moneyInputTextController.numberValue),
@@ -102,10 +103,13 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
       ),
       bottomNavigationBar: SetLabelButtons(
         primaryLabel: 'Cancelar',
-        primaryPress: () {},
+        primaryPress: () {
+          Navigator.pop(context);
+        },
         secondaryLabel: 'Cadastrar',
-        secondaryPress: () {
-          controller.cadastrarBoleto();
+        secondaryPress: () async {
+          await controller.cadastrarBoleto();
+          Navigator.pop(context);
         },
         enableSecColor: true,
       ),
